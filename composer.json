@@ -1,5 +1,5 @@
 {
-    "name": "moment/moment",
+    "name": "webmodules/moment",
     "description": "Parse, validate, manipulate, and display dates in JavaScript.",
     "keywords": [
         "moment",
@@ -15,7 +15,7 @@
     "homepage": "http://github.com/moment/moment/",
     "authors": [{"name": "Tim Wood", "email": "washwithcare@gmail.com"}],
     "license": "MIT",
-    "type": "component",
+    "type": "library",
     "require": {
         "robloach/component-installer": "*"
     },
