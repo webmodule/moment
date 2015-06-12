@@ -17,7 +17,6 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "robloach/component-installer": "*"
     },
     "extra": {
         "component": {
