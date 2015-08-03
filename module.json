@@ -1,0 +1,6 @@
+{
+	"name": "webmodules/moment",
+	"webmodules/moment": {
+		"js": ["moment.js"]
+	}
+}
