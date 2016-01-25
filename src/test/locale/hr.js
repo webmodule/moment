@@ -1,5 +1,5 @@
 import {localeModule, test} from '../qunit';
-import {moment} from '../../moment';
+import moment from '../../moment';
 localeModule('hr');
 
 test('parse', function (assert) {
@@ -22,7 +22,7 @@ test('parse', function (assert) {
 
 test('format', function (assert) {
     var a = [
-            ['dddd, Do MMMM YYYY, h:mm:ss a',      'nedjelja, 14. veljača 2010, 3:25:50 pm'],
+            ['dddd, Do MMMM YYYY, h:mm:ss a',      'nedjelja, 14. veljače 2010, 3:25:50 pm'],
             ['ddd, hA',                            'ned., 3PM'],
             ['M Mo MM MMMM MMM',                   '2 2. 02 veljača velj.'],
             ['YYYY YY',                            '2010 10'],

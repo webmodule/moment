@@ -28,8 +28,9 @@ module.exports = function (grunt) {
     function transpile(opts) {
         // base, entry, skip, headerFile, skipLines, target
         var umdName = opts.headerFile ? 'not_used' : opts.umdName,
-            header = opts.headerFile ? getHeaderByFile(opts.headerFile) : '',
-            skipLines = opts.skipLines ? opts.skipLines : 0;
+            headerFile = opts.headerFile ? opts.headerFile : 'templates/default.js',
+            header = getHeaderByFile(headerFile),
+            skipLines = opts.skipLines ? opts.skipLines : 5;
 
         return esperanto.bundle({
             base: opts.base,
@@ -105,7 +106,11 @@ module.exports = function (grunt) {
             code = files.map(function (file) {
                 var identifier = path.basename(file, '.js').replace('-', '_');
                 return 'import ' + identifier + ' from "./' + file + '";';
-            }).join('\n');
+            }).concat([
+                // Reset the language back to 'en', because every defineLocale
+                // also sets it.
+                'moment.locale(\'en\');'
+            ]).join('\n');
         return transpileCode({
             base: 'src',
             code: code,
@@ -141,7 +146,15 @@ module.exports = function (grunt) {
                 throw new Error('Failed to detect get default crap, check /tmp/crap.js');
             }
             code = code.replace(getDefaultRegExp, '');
-            code = code.replace('var moment_with_locales = ' + crap[1], 'var moment_with_locales = ' + crap[2]);
+
+            var buildExportVars = ['moment_with_locales', 'moment_with_locales_custom'];
+            buildExportVars.forEach(function (buildExportVar) {
+                var languageReset = buildExportVar  + '.locale(\'en\');';
+                code = code.replace('var ' + buildExportVar + ' = ' + crap[1] + ';',
+                                    'var ' + buildExportVar + ' = ' + crap[2] + ';\n' +
+                                    '    ' + languageReset);
+            });
+
             if (code.match('get default')) {
                 grunt.file.write('/tmp/crap.js', code);
                 throw new Error('Stupid shit es6 get default plaguing the code, check /tmp/crap.js');

@@ -1,5 +1,5 @@
 {
-  "name": "webmodules-moment",
+  "name": "moment",
   "main": "moment.js",
   "ignore": [
     "**/.*",
